@@ -1,9 +1,3 @@
-#	NOTES
-##	Course Overview
-####	App Overview
-####	App User Flow Walkthrough
-####	Tech Stack
-####	App Mockups
 ##	Server Side Architecture
 ####	Application Architecture
 ####	Relationship Between Node and Express
