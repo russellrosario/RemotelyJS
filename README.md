@@ -1,5 +1,7 @@
+# Full stack MERN workflow
+
 ## 0. Initialize project
-![0](./diagrams/0.PNG)
+![0](./diagrams/0.png)
 
 ## 1. Initialize project
 ![1](./diagrams/1.PNG)
