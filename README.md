@@ -41,3 +41,12 @@
 
 ## 13. Coordinate cookie manager with passport
 ![13](./diagrams/13.PNG)
+
+## 14. Create separate production keys
+![14](./diagrams/14.PNG)
+
+## 15. Commit production keys
+![15](./diagrams/15.PNG)
+
+## 16. Create react app on separate server
+![16](./diagrams/16.PNG)
