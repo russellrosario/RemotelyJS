@@ -50,3 +50,39 @@
 
 ## 16. Create react app on separate server
 ![16](./diagrams/16.PNG)
+
+## 17. React-redux router
+![17](./diagrams/17.PNG)
+
+## 18. React-redux provider
+![18](./diagrams/18.PNG)
+
+## 19. Redux flow
+![19](./diagrams/19.PNG)
+
+## 20. Adding materialize
+![20](./diagrams/20.PNG)
+
+## 21. Create authReducer
+![21](./diagrams/21.PNG)
+
+## 22. Using Redux Thunk
+![22](./diagrams/22.PNG)
+
+## 23. Handling reducers
+![23](./diagrams/23.PNG)
+
+## 24. Logout using cookies
+![24](./diagrams/24.PNG)
+
+## 25. Update link tags for application-specific links
+![25](./diagrams/25.PNG)
+
+## 26. Setup stripe payments
+![26](./diagrams/26.PNG)
+
+## 27. Adding user credits
+![27](./diagrams/27.PNG)
+
+## 28. Adding authentication middleware
+![28](./diagrams/28.PNG)
