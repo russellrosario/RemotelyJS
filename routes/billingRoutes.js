@@ -10,6 +10,9 @@ module.exports = app => {
       description: '$100 for a job listing on RemotelyJS',
       source: req.body.id
     })
+
+    console.log(charge)
+
     req.user.credits += 1
     const user = await req.user.save()
 

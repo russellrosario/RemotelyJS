@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import JobListingField from './JobListingField';
-import validateEmails from '../../utils/validateEmails';
+import validateEmail from '../../utils/validateEmail';
 import formFields from './formFields';
 
 class JobListingForm extends Component {
@@ -43,7 +43,7 @@ class JobListingForm extends Component {
 function validate(values) {
   const errors = {};
 
-  errors.recipients = validateEmails(values.recipients || '');
+  errors.email = validateEmail(values.email || '');
 
   _.each(formFields, ({ name }) => {
     if (!values[name]) {
