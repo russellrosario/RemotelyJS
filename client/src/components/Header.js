@@ -12,11 +12,12 @@ class Header extends Component {
         return <li><a href="/auth/google">Login with Google</a></li>
       default:
         return [
-          <li key="1"><Payments /></li>,
+          <li key="1"><a href="/jobListings/new">Post a job</a></li>,
+          <li key="2"><Payments /></li>,
           <li key="3" style={{ margin: '0 10px' }}>
             Credits: {this.props.auth.credits}
           </li>,
-          <li key="2"><a href="/api/logout">Logout</a></li>
+          <li key="4"><a href="/api/logout">Logout</a></li>
         ]
     }
   }
@@ -26,9 +27,9 @@ class Header extends Component {
       <nav>
         <div className="nav-wrapper">
           <Link
-            to={this.props.auth ? '/surveys' : '/'}
+            to={this.props.auth ? '/jobListings' : '/'}
             className="left brand-logo">
-            Emaily
+            RemotelyJS
           </Link>
           <ul className="right">
             {this.renderContent()}

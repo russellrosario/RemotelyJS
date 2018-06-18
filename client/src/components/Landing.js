@@ -4,9 +4,9 @@ const Landing = () => {
   return (
     <div style={{ textAlign: 'center' }}>
       <h1>
-        Emaily!
+        RemotelyJS
         </h1>
-      Collect feedback from your users
+      Find remote JavaScript jobs for developers around the world!
         </div>
   )
 }

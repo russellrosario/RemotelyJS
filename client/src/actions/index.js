@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_SURVEYS } from './types';
+import { FETCH_USER, FETCH_JOBLISTINGS } from './types';
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
@@ -13,15 +13,15 @@ export const handleToken = token => async dispatch => {
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const submitSurvey = (values, history) => async dispatch => {
-  const res = await axios.post('/api/surveys', values);
+export const submitJobListing = (values, history) => async dispatch => {
+  const res = await axios.post('/api/jobListings', values);
 
-  history.push('/surveys');
+  history.push('/jobListings');
   dispatch({ type: FETCH_USER, payload: res.data });
 };
 
-export const fetchSurveys = () => async dispatch => {
-  const res = await axios.get('/api/surveys');
+export const fetchJobListings = () => async dispatch => {
+  const res = await axios.get('/api/jobListings');
 
-  dispatch({ type: FETCH_SURVEYS, payload: res.data });
+  dispatch({ type: FETCH_JOBLISTINGS, payload: res.data });
 };

@@ -5,43 +5,43 @@ const mongoose = require('mongoose')
 const requireLogin = require('../middlewares/requireLogin')
 const requireCredits = require('../middlewares/requireCredits')
 const Mailer = require('../services/Mailer')
-const surveyTemplate = require('../services/emailTemplates/surveyTemplate')
+const jobListingTemplate = require('../services/emailTemplates/jobListingTemplate')
 
-const Survey = mongoose.model('surveys')
+const JobListing = mongoose.model('jobListings')
 
 module.exports = app => {
-  app.get('api/surveys/thanks', (req, res) => {
+  app.get('api/jobListings/thanks', (req, res) => {
     res.send('Thanks for voting!')
   })
 
-  app.get('/api/surveys', requireLogin, async (req, res) => {
-    const surveys = await Survey.find({ _user: req.user.id }).select({
+  app.get('/api/jobListings', requireLogin, async (req, res) => {
+    const jobListings = await JobListing.find({ _user: req.user.id }).select({
       recipients: false
     })
 
-    res.send(surveys)
+    res.send(jobListings)
   })
 
-  app.get('/api/surveys/:surveyId/:choice', (req, res) => {
+  app.get('/api/jobListings/:jobListingId/:choice', (req, res) => {
     res.send('Thanks for voting!')
   })
 
-  app.post('/api/surveys/webhooks', (req, res) => {
-    const p = new Path('/api/surveys/:surveyId/:choice')
+  app.post('/api/jobListings/webhooks', (req, res) => {
+    const p = new Path('/api/jobListings/:jobListingId/:choice')
 
     _.chain(req.body)
       .map(({ email, url }) => {
         const match = p.test(new URL(url).pathname)
         if (match) {
-          return { email, surveyId: match.surveyId, choice: match.choice }
+          return { email, jobListingId: match.jobListingId, choice: match.choice }
         }
       })
       .compact()
-      .uniqBy('email', 'surveyId')
-      .each(({ surveyId, email, choice }) => {
-        Survey.updateOne(
+      .uniqBy('email', 'jobListingId')
+      .each(({ jobListingId, email, choice }) => {
+        JobListing.updateOne(
           {
-            _id: surveyId,
+            _id: jobListingId,
             recipients: {
               $elemMatch: { email: email, responded: false }
             }
@@ -58,10 +58,10 @@ module.exports = app => {
     res.send({})
   })
 
-  app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
+  app.post('/api/jobListings', requireLogin, requireCredits, async (req, res) => {
     const { title, subject, body, recipients } = req.body
 
-    const survey = new Survey({
+    const jobListing = new JobListing({
       title,
       subject,
       body,
@@ -71,11 +71,11 @@ module.exports = app => {
     })
 
     // Great place to send an email!
-    const mailer = new Mailer(survey, surveyTemplate(survey))
+    const mailer = new Mailer(jobListing, jobListingTemplate(jobListing))
 
     try {
       await mailer.send()
-      await survey.save()
+      await jobListing.save()
       req.user.credits -= 1
       const user = await req.user.save()
 
