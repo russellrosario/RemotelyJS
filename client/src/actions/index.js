@@ -14,11 +14,17 @@ export const handleToken = token => async dispatch => {
 };
 
 export const submitJobListing = (values, history) => async dispatch => {
-  const res = await axios.post('/api/jobListings', values);
+  try {
+    const res = await axios.post('/api/jobListings', values);
+    history.push('/jobListings');
+    dispatch({ type: FETCH_USER, payload: res.data });
+  } catch (err) {
+    if (err.message.includes('403')) {
+      alert('You need to add more credits!')
+    }
+  }
+}
 
-  history.push('/jobListings');
-  dispatch({ type: FETCH_USER, payload: res.data });
-};
 
 export const fetchJobListings = () => async dispatch => {
   const res = await axios.get('/api/jobListings');
