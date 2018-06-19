@@ -1,4 +1,5 @@
 const express = require('express')
+const morgan = require('morgan')
 const mongoose = require('mongoose')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
@@ -12,7 +13,9 @@ mongoose.connect(keys.mongoURI)
 
 const app = express()
 
+app.use(morgan('dev'))
 app.use(bodyParser.json())
+
 // extract data out of cookie and put into req.session before passing onto passport middleware
 app.use(
   cookieSession({
