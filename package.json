@@ -32,6 +32,7 @@
     "mongoose": "^5.1.4",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
+    "passport-auth0": "^0.6.1",
     "passport-google-oauth20": "^1.0.0",
     "stripe": "^6.1.1"
   }
