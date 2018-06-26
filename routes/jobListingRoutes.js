@@ -6,11 +6,10 @@ const JobListing = mongoose.model('jobListings')
 
 module.exports = app => {
   app.get('/api/jobListings', requireLogin, async (req, res) => {
-    const jobListings = await JobListing.find({ _user: req.user.id }).select({
-      email: false
-    })
+    const jobListings = await JobListing.find();
 
-    res.send(jobListings)
+
+    res.json(jobListings)
   })
 
   app.post('/api/jobListings', requireLogin, requireCredits, async (req, res) => {

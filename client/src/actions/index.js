@@ -26,8 +26,7 @@ export const submitJobListing = (values, history) => async dispatch => {
 }
 
 
-export const fetchJobListings = () => async dispatch => {
-  const res = await axios.get('/api/jobListings');
-
+export var fetchJobListings = () => async dispatch => {
+  var res = await axios.get('/api/jobListings');
   dispatch({ type: FETCH_JOBLISTINGS, payload: res.data });
 };

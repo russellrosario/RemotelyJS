@@ -6,8 +6,8 @@ const jobListingSchema = new Schema({
   body: String,
   subject: String,
   email: String,
-  yes: { type: Number, default: 0 },
-  no: { type: Number, default: 0 },
+  compensation: String,
+  url: String,
   _user: { type: Schema.Types.ObjectId, ref: 'User' },
   dateSent: Date,
   lastResponded: Date
