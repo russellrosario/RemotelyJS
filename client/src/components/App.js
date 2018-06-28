@@ -7,6 +7,7 @@ import Header from './Header'
 import Landing from './Landing'
 import Dashboard from './Dashboard'
 import JobListingNew from './jobListings/JobListingNew'
+import DevView from './DevView';
 
 class App extends Component {
     componentDidMount() {
@@ -20,6 +21,7 @@ class App extends Component {
                     <div>
                         <Header />
                         <Route exact path="/" component={Landing} />
+                        <Route exact path="/jobs" component={DevView} />
                         <Route exact path="/jobListings" component={Dashboard} />
                         <Route path="/jobListings/new" component={JobListingNew} />
 

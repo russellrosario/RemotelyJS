@@ -8,6 +8,7 @@ const keys = require('./config/keys')
 require('./models/User')
 require('./models/JobListing')
 require('./services/passport')
+require('./models/jobs')
 
 mongoose.connect(keys.mongoURI)
 
@@ -29,6 +30,7 @@ app.use(passport.session())
 require('./routes/authRoutes')(app)
 require('./routes/billingRoutes')(app)
 require('./routes/jobListingRoutes')(app)
+require('./routes/jobBoardRoutes')(app)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
