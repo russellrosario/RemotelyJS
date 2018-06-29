@@ -117,6 +117,7 @@ const scrape = ()=>{
                     
                     promises.map((e,i)=> findJobs($, e));
                 })
+                .then(()=> {return true;})
                 .catch(e=> {if(e) console.log(e)});
 
         })
