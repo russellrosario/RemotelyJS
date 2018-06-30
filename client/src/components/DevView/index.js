@@ -1,38 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchJobListings } from '../../actions';
+import { fetchJobs } from '../../actions';
 
-import axios from 'axios';
+import './style.css';
 
 class DevView extends Component {
 
-  constructor(props){
-      super(props);
-
-      this.state = {
-          jobs: []
-      }
-  }
-
   componentWillMount() {
-    axios
-      .get('/api/jobs')
-      .then(data => this.setState({jobs: data}))
+    this.props.fetchJobs();
   }
 
   render() {
-      const jobs = this.state.props;
+    const renderJobs = this.props.jobs.map((job,i) => {
+      return (
+        <a className='jobLink' href={job.link} key={i} target="_blank">
+          <div className='jobBox'>
+            <p className='jobTitle'>{job.jobTitle}</p>
+            <p className='jobCompany'>{job.company}</p>
+            <p className='jobSalary'>{job.salary}</p>
+            <p className='jobDescription'>{job.description}</p>
+          </div>
+        </a>
+      )
+    })
+
     return (
       <div>
-        Reg View;
-        
+        {renderJobs}
       </div>
     );
   }
 }
 
-function mapStateToProps({ jobListings }) {
-    return { jobListings };
-}
+const mapStateToProps = state => ({
+  //state.jobs or empty array if undefine to avoid issues
+  jobs: state.jobs || []
+})
   
-export default connect(mapStateToProps, { fetchJobListings })(DevView);
+export default connect(mapStateToProps, { fetchJobs })(DevView);

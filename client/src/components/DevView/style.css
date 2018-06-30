@@ -1,0 +1,33 @@
+.jobLink {
+    color: black;
+}
+
+.jobLink:hover {
+    
+}
+
+.jobBox {
+    border: 1px solid black;
+    background-color: lightgray;
+    padding: 10px;
+}
+
+.jobBox:hover {
+    background-color: darkgray;
+}
+
+.jobTitle {
+    
+}
+
+.jobCompany {
+
+}
+
+.jobSalary {
+
+}
+
+.jobDescription {
+
+}

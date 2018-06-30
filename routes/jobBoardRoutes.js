@@ -11,7 +11,7 @@ module.exports = app => {
     app.get('/api/jobs/list', async (req, res) => {
         //sorted last scraped shown first
         const results = await Jobs.find().sort({'dateAdded': -1});
-        res.json(results);
+        res.send(results);
     });
 
     app.get('/api/jobs/match/:tag', async (req,res)=>{
@@ -24,7 +24,7 @@ module.exports = app => {
              ]}).sort({'dateAdded': -1});
 
              console.log(results);
-        res.json(results);
+        res.send(results);
     });
 
     //scrapes last 24 hrs. ran 6/29 7.16pm
