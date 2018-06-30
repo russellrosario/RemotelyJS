@@ -13,3 +13,4 @@
 11. Add blog and articles for remote developers
 12. Add Redis and data caching
 13. Implement clustering and AWS load balancing
+14. Elasticsearch
