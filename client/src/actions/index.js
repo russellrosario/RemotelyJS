@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_JOBLISTINGS, FETCH_JOBS } from './types';
+import { FETCH_USER, FETCH_JOBLISTINGS, FETCH_JOBS, COUNT_JOBS } from './types';
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
@@ -32,8 +32,14 @@ export const fetchJobListings = () => async dispatch => {
   dispatch({ type: FETCH_JOBLISTINGS, payload: res.data });
 };
 
-export const fetchJobs = () => async dispatch => {
-  const res = await axios.get('/api/jobs/list');
+export const fetchJobs = (page,show) => async dispatch => {
+  const res = await axios.get(`/api/jobs/list?page=${page}&show=${show}`);
 
   dispatch({ type: FETCH_JOBS, payload: res.data });
+};
+
+export const jobCount = () => async dispatch => {
+  const res = await axios.get('/api/jobs/count');
+
+  dispatch({ type: COUNT_JOBS, payload: res.data });
 };

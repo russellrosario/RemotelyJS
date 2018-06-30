@@ -7,10 +7,18 @@ const Jobs = mongoose.model('jobs');
 const scraper = require('../controllers/jobBoard');
 
 module.exports = app => {
+
+    app.get('/api/jobs/count', async (req, res) => {
+        console.log(req.params)
+        //gets count
+        const results = await Jobs.count();
+        res.status(200).send(results.toString());
+    });
   
     app.get('/api/jobs/list', async (req, res) => {
+        console.log(req.query);
         //sorted last scraped shown first
-        const results = await Jobs.find().sort({'dateAdded': -1});
+        const results = await Jobs.find().sort({'dateAdded': -1}).limit(parseInt(req.query.show)).skip(parseInt(req.query.page) * parseInt(req.query.show));
         res.send(results);
     });
 
@@ -21,9 +29,8 @@ module.exports = app => {
                 //sorted last scraped shown first
                 {'jobTitle': { $regex: new RegExp(req.params.tag, 'gi')}},
                 {'description': { $regex: new RegExp(req.params.tag, 'gi')}}
-             ]}).sort({'dateAdded': -1});
+             ]}).sort({'dateAdded': -1}).limit(20);
 
-             console.log(results);
         res.send(results);
     });
 
