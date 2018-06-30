@@ -19,13 +19,14 @@ class DevView extends Component {
     this.state = {page: 1, resultsPerPg: 20};
 
     this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
   }
 
   nextPage = ()=>{
 
     if((this.state.page * this.state.resultsPerPg) + this.state.resultsPerPg < (this.props.count + 1) || this.props.count > (this.state.page * this.state.resultsPerPg)) {
       this.setState({page: (this.state.page + 1)});
-      this.props.fetchJobs((this.state.page), this.state.resultsPerPg);
+      this.props.fetchJobs((this.state.page + 1), this.state.resultsPerPg);
     }
   }
 
@@ -33,7 +34,7 @@ class DevView extends Component {
 
     if(this.state.page > 1) {
       this.setState({page: (this.state.page - 1)});
-      this.props.fetchJobs((this.state.page), this.state.resultsPerPg);
+      this.props.fetchJobs((this.state.page -1), this.state.resultsPerPg);
     }
   }
 
