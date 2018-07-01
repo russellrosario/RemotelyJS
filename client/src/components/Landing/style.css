@@ -1,0 +1,8 @@
+#bg-div {
+    width: 100%;
+    min-height: 600px;
+    padding-top: 30px;
+
+    background-image: url('/assets/images/remotely1.jpg');
+    background-size: cover;
+}
