@@ -1,12 +1,14 @@
-import { combineReducers } from 'redux'
-import { reducer as reduxForm } from 'redux-form'
+import { combineReducers } from 'redux';
 import authReducer from './authReducer';
+import errorReducer from './errorReducer';
+import profileReducer from './profileReducer';
 import jobBoardReducer from './jobBoardReducer';
 import jobCountReducer from './jobCountReducer';
 
 export default combineReducers({
   auth: authReducer,
-  form: reduxForm,
+  errors: errorReducer,
+  profile: profileReducer,
   jobs: jobBoardReducer,
   count: jobCountReducer
-})
+});

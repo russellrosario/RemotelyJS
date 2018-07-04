@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 // Create Schema
-const UserSchema = new Schema({
+const InquirySchema = new Schema({
   name: {
     type: String,
     required: true
@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  password: {
+  message: {
     type: String,
     required: true
   },
@@ -21,6 +21,6 @@ const UserSchema = new Schema({
   }
 })
 
-const User = mongoose.model('users', UserSchema)
+const Inquiry = mongoose.model('inquiries', InquirySchema)
 
-module.exports = User
+module.exports = Inquiry
