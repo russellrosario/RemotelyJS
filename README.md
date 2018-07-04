@@ -1,6 +1,6 @@
 # Things to add
 
-1. Add LinkedIn and Github authentication
+1. 404 page and forgot password?
 2. Add job scraper and post listings to dashboard
 3. Add Jest testing
 4. Add user profile section for job preferences and enable resume uploading
