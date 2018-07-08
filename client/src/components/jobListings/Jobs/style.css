@@ -1,0 +1,41 @@
+.jobLink {
+    color: black;
+}
+
+.jobLink:hover {
+    text-decoration: none;
+}
+
+.jobBox {
+    
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.jobBox:hover {
+    background-color: black;
+    color: #39b54a;
+    opacity: 0.8;
+    
+}
+
+.jobTitle {
+    
+}
+
+.jobCompany {
+
+}
+
+.jobSalary {
+
+}
+
+.jobDescription {
+    font-size: 11px;
+
+}
+
+.dateAdded {
+    font-size: 10px;
+}

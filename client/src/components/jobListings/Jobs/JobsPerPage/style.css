@@ -1,0 +1,12 @@
+#results-per-page {
+    display: block;
+    
+}
+
+#dropDown > a:hover {
+    cursor: pointer;
+    background: lightgray;
+}
+#dropDown > a:active {
+    background-color: #39b54a;
+}

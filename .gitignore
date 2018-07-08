@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+node_modules
+dev.js
+/documents
+=======
 /node_modules
 package-lock.json
 /config/keys_dev.js
+>>>>>>> 586dad82ea5eb4ab98af78ef0b8c83bba086a25d
