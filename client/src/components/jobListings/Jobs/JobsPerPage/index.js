@@ -26,7 +26,7 @@ class JobsPerPage extends Component {
           <button type="button" className="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {this.props.resultsPerPage}
           </button>
-          <div className="dropdown-menu">
+          <div className="dropdown-menu" id="dropDown">
             <a className="dropdown-item" onClick={this.onClick} value="10">10</a>
             <a className="dropdown-item" onClick={this.onClick} value="20">20</a>
             <a className="dropdown-item" onClick={this.onClick} value="50">50</a>

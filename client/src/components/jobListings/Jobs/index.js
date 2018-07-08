@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { fetchJobs } from '../../../actions/jobBoardActions';
 import { jobCount } from '../../../actions/jobBoardActions';
 
+import moment from 'moment';
+
 import TotalPages from './TotalPages';
 import CurrentPage from './CurrentPage';
 import Next from './Next';
@@ -64,11 +66,11 @@ class Jobs extends Component {
         <div key={i} className="col-sm-12 col-md-6">
           <a className='jobLink' href={job.link} target="_blank">
             <div className='jobBox'>
-              <p className='jobTitle'>{`${job.jobTitle}`}</p>
+              <h3 className='jobTitle'>{`${job.jobTitle}`}</h3>
               <p className='jobCompany'>{job.company}</p>
               <p className='jobSalary'>{job.salary}</p>
               <p className='jobDescription'>{job.description}</p>
-              <p className="dateAdded">{job.dateAdded}</p>
+              <p className="dateAdded">Added: {moment(job.dateAdded).format('MMM Do YYYY')}</p>
             </div>
           </a>
         </div>
@@ -84,6 +86,9 @@ class Jobs extends Component {
         <div className="row">
           {renderJobs}
         </div>
+
+        <Prev onClick={this.prevPage} />
+        <Next onClick={this.nextPage} />
         
         
       </div>
