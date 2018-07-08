@@ -9,12 +9,12 @@ class CurrentPage extends Component {
 
   render() {
 
-    const start = (this.props.page * this.props.shown) - this.props.shown + 1;
-    const end = (this.props.page * this.props.shown) < this.props.count ? (this.props.page * this.props.shown) : this.props.count;
+    const start = (this.props.page * this.props.shown) + 1;
+    const end = this.props.page > 0 ? (this.props.page + 1) * this.props.shown : this.props.shown ;
 
     return (
       <span>
-        {this.props.page > 0 ? `${start}-${end} of ` : ''}
+        {this.props.page > -1 ? `${start}-${end} of ` : ''}
       </span>
     );
   }

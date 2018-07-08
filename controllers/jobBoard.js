@@ -83,6 +83,7 @@ const findJobs = ($, e)=>{
 
 //run scrape
 const scrape = ()=>{
+    console.log('ok')
     //hardcoded rpp
     let resultsPerPage = 16;
 
@@ -115,7 +116,8 @@ const scrape = ()=>{
                 .all(promises)
                 .then(() => {
                     
-                    promises.map((e,i)=> findJobs($, e));
+                    console.log('ok')
+                    return promises.map((e,i)=> findJobs($, e));
                 })
                 .then(()=> {return true;})
                 .catch(e=> {if(e) console.log(e)});

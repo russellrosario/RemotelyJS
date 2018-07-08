@@ -3,17 +3,20 @@
 }
 
 .jobLink:hover {
-    
+    text-decoration: none;
 }
 
 .jobBox {
-    border: 1px solid black;
-    background-color: lightgray;
+    
     padding: 10px;
+    border-radius: 4px;
 }
 
 .jobBox:hover {
-    background-color: darkgray;
+    background-color: black;
+    color: #39b54a;
+    opacity: 0.8;
+    
 }
 
 .jobTitle {

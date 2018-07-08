@@ -1,7 +1,9 @@
-a {
-    color: red;
+#prev {
+    float: left;
+    font-size: 2em;
 }
 
-a:hover {
+#prev:hover {
     cursor: pointer;
+    color: #39b54a;
 }

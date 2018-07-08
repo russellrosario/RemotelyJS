@@ -13,7 +13,7 @@ const scraper = require('../../controllers/jobBoard');
     router.get('/count', async (req, res) => {
         console.log(req.params)
         //gets count
-        const results = await Jobs.count();
+        const results = await Jobs.countDocuments();
         res.status(200).send(results.toString());
     });
   
@@ -31,15 +31,16 @@ const scraper = require('../../controllers/jobBoard');
                 //sorted last scraped shown first
                 {'jobTitle': { $regex: new RegExp(req.params.tag, 'gi')}},
                 {'description': { $regex: new RegExp(req.params.tag, 'gi')}}
-             ]}).sort({'dateAdded': -1}).limit(20);
+             ]}).sort({'dateAdded': 1}).limit(20);
 
         res.send(results);
     });
 
     //scrapes last 24 hrs. ran 6/29 7.16pm
     router.get('/scrape', async (req, res) => {
+        console.log('scraping')
         await scraper.scrape();
-        res.redirect('/api/jobs/list');
+        res.redirect('/feed');
     });
 
 module.exports = router;
