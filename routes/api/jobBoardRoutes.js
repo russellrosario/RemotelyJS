@@ -25,15 +25,23 @@ const scraper = require('../../controllers/jobBoard');
     });
 
     router.get('/match/:tag', async (req,res)=>{
+        const numResults = await Jobs.countDocuments({ 
+            $or :[
+                //if the jobTitle *or* description contains tag
+                //sorted last scraped shown first
+                {'jobTitle': { $regex: new RegExp(req.params.tag, 'gi')}},
+                {'description': { $regex: new RegExp(req.params.tag, 'gi')}}
+             ]});
+
         const results = await Jobs.find({ 
             $or :[
                 //if the jobTitle *or* description contains tag
                 //sorted last scraped shown first
                 {'jobTitle': { $regex: new RegExp(req.params.tag, 'gi')}},
                 {'description': { $regex: new RegExp(req.params.tag, 'gi')}}
-             ]}).sort({'dateAdded': 1}).limit(20);
+             ]}).sort({'dateAdded': -1}).limit(parseInt(req.query.show)).skip(parseInt(req.query.page) * parseInt(req.query.show));
 
-        res.send(results);
+        res.send([numResults, results]);
     });
 
     //scrapes last 24 hrs. ran 6/29 7.16pm

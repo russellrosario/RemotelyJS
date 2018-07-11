@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchJobs } from '../../../actions/jobBoardActions';
-import { jobCount } from '../../../actions/jobBoardActions';
+import { fetchTaggedJobs } from '../../../actions/jobBoardActions';
 
 import moment from 'moment';
 
@@ -15,10 +14,11 @@ import './style.css';
 
 
 
-class Jobs extends Component {
+class TaggedJobs extends Component {
 
   constructor(props){
     super(props);
+
 
     this.state = {page: 0, resultsPerPg: 20};
 
@@ -30,9 +30,9 @@ class Jobs extends Component {
   nextPage = ()=>{
 
     //if next page last possible res > count
-    if((this.state.page + 1) * this.state.resultsPerPg < this.props.count + 1 ) {
+    if((this.state.page + 1) * this.state.resultsPerPg < this.props.taggedJobs[0] + 1 ) {
       this.setState({page: (this.state.page + 1)});
-      this.props.fetchJobs((this.state.page + 1), this.state.resultsPerPg);
+      this.props.fetchTaggedJobs(this.props.filter, (this.state.page + 1), this.state.resultsPerPg);
       
     }
   }
@@ -40,33 +40,35 @@ class Jobs extends Component {
   prevPage = ()=>{
 
     if(this.state.page > 0) {
+      
       this.setState({page: (this.state.page - 1)});
-      this.props.fetchJobs((this.state.page - 1), this.state.resultsPerPg)
+      this.props.fetchTaggedJobs(this.props.filter, (this.state.page - 1), this.state.resultsPerPg)
       
     }
   }
 
   changeResultsPerPage = (numResults)=>{
     this.setState({page: 0, resultsPerPg: numResults});
-    this.props.fetchJobs(0, numResults);
+    this.props.fetchTaggedJobs(this.props.filter, 0, numResults);
 
   }
 
   componentDidMount() {
-    
-    this.props.fetchJobs(this.state.page, this.state.resultsPerPg);
-    this.props.jobCount();
+    console.log(this.props.filter)
+    this.props.fetchTaggedJobs(this.props.filter, this.state.page, this.state.resultsPerPg);
   }
 
 
   render() {
 
+    console.log(this.props)
 
-    const renderJobs = this.props.jobs.map((job,i) => {
+    const renderJobs = this.props.taggedJobs[1].map((job,i) => {
       return (
         <div key={i} className="col-sm-12 col-md-6">
           <a className='jobLink' href={job.link} target="_blank">
             <div className='jobBox'>
+              <p>{job._id}</p>
               <h3 className='jobTitle'>{`${job.jobTitle}`}</h3>
               <p className='jobCompany'>{job.company}</p>
               <p className='jobSalary'>{job.salary}</p>
@@ -83,7 +85,7 @@ class Jobs extends Component {
         <Prev onClick={this.prevPage} />
         <Next onClick={this.nextPage} />
         <JobsPerPage resultsPerPage={this.state.resultsPerPg} changeResultsPerPage={this.changeResultsPerPage} />
-        <p className="text-center">Now showing: <CurrentPage page={this.state.page} shown={this.state.resultsPerPg} count={this.props.count} /><TotalPages count={this.props.count} shown={this.state.resultsPerPg} /> jobs.</p>
+        <p className="text-center">Now showing: <CurrentPage page={this.state.page} shown={this.state.resultsPerPg} count={this.props.taggedJobs[0]} /><TotalPages count={this.props.taggedJobs[0]} shown={this.state.resultsPerPg} /> jobs.</p>
         <div className="row">
           {renderJobs}
         </div>
@@ -98,9 +100,8 @@ class Jobs extends Component {
 }
 
 const mapStateToProps = state => ({
-  //state.jobs or empty array if undefine to avoid issues
-  jobs: state.jobs || [],
-  count: state.count 
+  //state.taggedJobs or 0, empty array if undefine to avoid issues
+  taggedJobs: state.taggedJobs || [0, []]
 })
   
-export default connect(mapStateToProps, { fetchJobs, jobCount })(Jobs);
+export default connect(mapStateToProps, { fetchTaggedJobs })(TaggedJobs);

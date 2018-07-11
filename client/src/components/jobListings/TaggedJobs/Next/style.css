@@ -1,0 +1,9 @@
+#next {
+    float: right;
+    font-size: 2em;
+}
+
+#next:hover {
+    cursor: pointer;
+    color: #39b54a;
+}

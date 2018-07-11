@@ -13,4 +13,5 @@ export const ADD_POST = 'ADD_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const FETCH_JOBS = 'FETCH_JOBS';
 export const COUNT_JOBS = 'COUNT_JOBS';
+export const FETCH_TAGGED_JOBS = 'FETCH_TAGGED_JOBS';
 
