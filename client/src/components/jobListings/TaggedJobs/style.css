@@ -38,10 +38,11 @@
 
 .dateAdded {
     font-size: 10px;
+    
 }
-
 .filter-container {
     margin: 0 20px;
+    cursor: pointer;
 }
 
 .filter-container.active {
