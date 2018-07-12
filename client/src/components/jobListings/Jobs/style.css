@@ -42,6 +42,7 @@
 
 .filter-container {
     margin: 0 20px;
+    cursor: pointer;
 }
 
 .filter-container.active {
