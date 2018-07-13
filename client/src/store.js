@@ -15,7 +15,8 @@ const store = createStore(
 );
 
 
-// CHROME DEV TOOLS FOR REDUX
+// MUST COMMENT OUT BEFORE DEPLOYING
+// UNCOMMENT FOR CHROME DEV REDUX TOOL
 // const store = createStore(
 //   rootReducer,
 //   initialState,
