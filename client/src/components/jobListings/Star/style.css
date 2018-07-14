@@ -4,3 +4,7 @@
     margin-right: 90%;
     display: block;
 }
+
+.starred {
+    color: red;
+}

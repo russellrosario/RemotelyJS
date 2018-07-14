@@ -5,13 +5,14 @@ import { jobCount } from '../../../actions/jobBoardActions';
 import { getCurrentProfile } from '../../../actions/profileActions';
 
 import moment from 'moment';
+import axios from 'axios';
 
 import TotalPages from './TotalPages';
 import CurrentPage from './CurrentPage';
 import Next from './Next';
 import Prev from './Prev';
 import JobsPerPage from './JobsPerPage';
-import Star from './Star';
+import Star from '../Star';
 
 import './style.css';
 
@@ -29,6 +30,8 @@ class Jobs extends Component {
     this.changeResultsPerPage = this.changeResultsPerPage.bind(this);
 
     this.isStarred = this.isStarred.bind(this);
+    this.handleStar = this.handleStar.bind(this);
+    this.addStar = this.addStar.bind(this);
     
   }
 
@@ -65,19 +68,62 @@ class Jobs extends Component {
     
     this.props.fetchJobs(this.state.page, this.state.resultsPerPg);
     this.props.jobCount();
+    this.props.getCurrentProfile();
     
   }
 
-  //async => const user = await axios.get('api/users/current');
+  addStar (jobId){
+    return axios.post('/api/profile/job/star', {
+      jobId: jobId
+    })
+    .then(function(response){
+      
+      console.log(response);
+    })
+    .catch(function(e){
+      console.log(e);
+    })
+    
+  }
+
+  unStar (jobId){
+    return axios.post('/api/profile/job/unstar', {
+      jobId: jobId
+    })
+    .then(function(response){
+      
+      console.log(response);
+    })
+    .catch(function(e){
+      console.log(e);
+    })
+
+    
+  }
+  
   handleStar = (e)=>{
+    this.props.getCurrentProfile();
+    
     const clicked = e.target.getAttribute('data-job-id');
-    console.log(clicked);
-    console.log(this.props.user.profile.starredJobs)
+    const profile = this.props.user.profile;
+
+
+
+    if(profile){
+      
+      const jobIsStarred = profile.starredJobs.indexOf(clicked) > -1;
+      
+      jobIsStarred ? this.unStar(clicked) : this.addStar(clicked);
+      
+      this.forceUpdate();
+    }
 
   }
 
   isStarred = (jobId)=>{
-    console.log(this.props.user.profile)
+    if(this.props.user.profile){
+      return this.props.user.profile.starredJobs.indexOf(jobId) > -1;
+    }
   }
 
 
