@@ -8,9 +8,36 @@ const passport = require('passport')
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register')
 const validateLoginInput = require('../../validation/login')
+const validatePasswordUpdate = require('../../validation/password')
 
 // Load User model
 const User = require('../../models/User')
+
+// @route   POST api/users/reset-pw
+// @desc    Return current user
+// @access  Private
+router.post('/reset-pw', (req, res) => {
+  const { errors, isValid } = validatePasswordUpdate(req.body)
+
+  if (!isValid) {
+    return res.status(400).json(errors)
+  }
+
+  const newPassword = req.body.password
+  let hashedPassword
+
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) console.log(err)
+    bcrypt.hash(newPassword, salt, (err, hash) => {
+      if (err) throw err
+      hashedPassword = hash
+    })
+  })
+
+  User.findOneAndUpdate({ email: req.body.email }, { password: hashedPassword })
+    .then(user => res.json(user))
+    .catch(err => console.log(err))
+})
 
 // @route   POST api/users/register
 // @desc    Register user

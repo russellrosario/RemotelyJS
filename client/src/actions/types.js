@@ -14,4 +14,6 @@ export const DELETE_POST = 'DELETE_POST';
 export const FETCH_JOBS = 'FETCH_JOBS';
 export const COUNT_JOBS = 'COUNT_JOBS';
 export const FETCH_TAGGED_JOBS = 'FETCH_TAGGED_JOBS';
+export const RESET_PW = 'RESET_PW';
+
 

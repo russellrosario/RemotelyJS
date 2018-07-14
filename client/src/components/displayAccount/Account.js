@@ -49,6 +49,10 @@ class Account extends Component {
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
             <div style={{ marginBottom: '60px' }} />
+            <Link to="/reset-pw" style={{ marginRight: '20px' }}>
+              Reset Password
+            </Link>
+
             <button
               onClick={this.onDeleteClick.bind(this)}
               className="btn btn-danger"

@@ -20,6 +20,8 @@ import Response from './components/hiring/Response';
 import Guide from './components/guide/Guide';
 
 import Account from './components/displayAccount/Account';
+import ResetPw from './components/auth/ResetPw';
+
 import CreateProfile from './components/updateProfile/CreateProfile';
 import EditProfile from './components/updateProfile/EditProfile';
 import AddExperience from './components/updateProfile/AddExperience';
@@ -68,6 +70,9 @@ class App extends Component {
 
               <Switch>
                 <PrivateRoute exact path="/account" component={Account} />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/reset-pw" component={ResetPw} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/feed" component={Feed} />

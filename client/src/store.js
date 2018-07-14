@@ -6,24 +6,24 @@ const initialState = {};
 
 const middleware = [thunk];
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  compose(
-    applyMiddleware(...middleware)
-  )
-);
-
-
-// MUST COMMENT OUT BEFORE DEPLOYING
-// UNCOMMENT FOR CHROME DEV REDUX TOOL
 // const store = createStore(
 //   rootReducer,
 //   initialState,
 //   compose(
-//     applyMiddleware(...middleware),
-//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+//     applyMiddleware(...middleware)
 //   )
 // );
+
+
+// MUST COMMENT OUT BEFORE DEPLOYING
+// UNCOMMENT FOR CHROME DEV REDUX TOOL
+const store = createStore(
+  rootReducer,
+  initialState,
+  compose(
+    applyMiddleware(...middleware),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
 
 export default store;
