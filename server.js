@@ -36,7 +36,6 @@ app.use('/api/profile', profile)
 app.use('/api/inquiry', inquiry)
 app.use('/api/jobs', jobBoard)
 
-
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

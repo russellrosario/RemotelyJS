@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Find remote work for javascript developers",
   "main": "server.js",
+  "engineStrict": true,
+  "engines": {
+    "node": "8.9.4"
+  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
