@@ -8,7 +8,8 @@
 
 .jobBox {
     
-    padding: 10px;
+    padding: 30px 10px 10px 10px;
+    word-wrap: break-word;
     border-radius: 4px;
 }
 
@@ -38,8 +39,8 @@
 
 .dateAdded {
     font-size: 10px;
-    
 }
+
 .filter-container {
     margin: 0 20px;
     cursor: pointer;

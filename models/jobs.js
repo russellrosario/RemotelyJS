@@ -8,7 +8,8 @@ const jobSchema = new Schema({
     description: String,
     salary: String,
     link: String,
-    dateAdded: Date
+    dateAdded: Date,
+    starred: Number
 
 });
 

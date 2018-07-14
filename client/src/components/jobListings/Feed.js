@@ -9,7 +9,7 @@ class Feed extends Component {
     super(props);
 
     this.state = {
-      filter: 'vue'
+      filter: 'all'
     }
 
     this.changeFilter = this.changeFilter.bind(this);
@@ -23,7 +23,6 @@ class Feed extends Component {
   }
 
   render() {
-    console.log(this.state)
     const jobs = ()=>{
       if(this.state.filter !== 'all'){
         return <TaggedJobs filter={this.state.filter} />;

@@ -1,11 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
-require('../../models/jobs')
+require('../../models/jobs');
 
 const mongoose = require('mongoose');
 
 const Jobs = mongoose.model('jobs');
+// Load User model
+const User = require('../../models/User');
 
 const scraper = require('../../controllers/jobBoard');
 
@@ -44,11 +46,16 @@ const scraper = require('../../controllers/jobBoard');
         res.send([numResults, results]);
     });
 
-    //scrapes last 24 hrs. ran 6/29 7.16pm
+    //scrapes last 24 hrs. ran 7/12 8pm
     router.get('/scrape', async (req, res) => {
         console.log('scraping')
         await scraper.scrape();
         res.redirect('/feed');
+    });
+
+    router.post('/star', async (req,res)=>{
+        console.log(req.currentUser);
+        res.send('ok');
     });
 
 module.exports = router;

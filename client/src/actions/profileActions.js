@@ -28,6 +28,7 @@ export const getCurrentProfile = () => dispatch => {
     );
 };
 
+
 // Create Profile
 export const createProfile = (profileData, history) => dispatch => {
   axios

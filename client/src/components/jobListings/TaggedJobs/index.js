@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTaggedJobs } from '../../../actions/jobBoardActions';
+import { getCurrentProfile } from '../../../actions/profileActions';
 
 import moment from 'moment';
+import axios from 'axios';
 
 import TotalPages from './TotalPages';
 import CurrentPage from './CurrentPage';
@@ -11,6 +13,7 @@ import Prev from './Prev';
 import JobsPerPage from './JobsPerPage';
 
 import './style.css';
+import Star from '../Star';
 
 
 
@@ -25,6 +28,12 @@ class TaggedJobs extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.changeResultsPerPage = this.changeResultsPerPage.bind(this);
+  
+
+    this.isStarred = this.isStarred.bind(this);
+    this.handleStar = this.handleStar.bind(this);
+    this.addStar = this.addStar.bind(this);
+
   }
 
   nextPage = ()=>{
@@ -58,17 +67,71 @@ class TaggedJobs extends Component {
     this.props.fetchTaggedJobs(this.props.filter, this.state.page, this.state.resultsPerPg);
   }
 
+  addStar (jobId){
+    return axios.post('/api/profile/job/star', {
+      jobId: jobId
+    })
+    .then(function(response){
+      
+      console.log(response);
+    })
+    .catch(function(e){
+      console.log(e);
+    })
+    
+  }
+
+  unStar (jobId){
+    return axios.post('/api/profile/job/unstar', {
+      jobId: jobId
+    })
+    .then(function(response){
+      
+      console.log(response);
+    })
+    .catch(function(e){
+      console.log(e);
+    })
+
+    
+  }
+  
+  handleStar = (e)=>{
+    this.props.getCurrentProfile();
+    
+    const clicked = e.target.getAttribute('data-job-id');
+    const profile = this.props.user.profile;
+
+
+
+    if(profile){
+      
+      const jobIsStarred = profile.starredJobs.indexOf(clicked) > -1;
+      
+      jobIsStarred ? this.unStar(clicked) : this.addStar(clicked);
+      
+      this.forceUpdate();
+    }
+
+  }
+
+  isStarred = (jobId)=>{
+    if(this.props.user.profile){
+      return this.props.user.profile.starredJobs.indexOf(jobId) > -1;
+    }
+  }
+
+
 
   render() {
-
-    console.log(this.props)
 
     const renderJobs = this.props.taggedJobs[1].map((job,i) => {
       return (
         <div key={i} className="col-sm-12 col-md-6">
+          <Star jobId={job._id} handleStar={this.handleStar} isStarred={this.isStarred(job._id)} />
           <a className='jobLink' href={job.link} target="_blank">
+            
             <div className='jobBox'>
-              <p>{job._id}</p>
               <h3 className='jobTitle'>{`${job.jobTitle}`}</h3>
               <p className='jobCompany'>{job.company}</p>
               <p className='jobSalary'>{job.salary}</p>
@@ -101,7 +164,8 @@ class TaggedJobs extends Component {
 
 const mapStateToProps = state => ({
   //state.taggedJobs or 0, empty array if undefine to avoid issues
-  taggedJobs: state.taggedJobs || [0, []]
+  taggedJobs: state.taggedJobs || [0, []],
+  user: state.profile || []
 })
   
-export default connect(mapStateToProps, { fetchTaggedJobs })(TaggedJobs);
+export default connect(mapStateToProps, { fetchTaggedJobs, getCurrentProfile })(TaggedJobs);
