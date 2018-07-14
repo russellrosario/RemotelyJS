@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchJobs } from '../../../actions/jobBoardActions';
 import { jobCount } from '../../../actions/jobBoardActions';
+import { getCurrentProfile } from '../../../actions/profileActions';
 
 import moment from 'moment';
 
@@ -10,6 +11,7 @@ import CurrentPage from './CurrentPage';
 import Next from './Next';
 import Prev from './Prev';
 import JobsPerPage from './JobsPerPage';
+import Star from './Star';
 
 import './style.css';
 
@@ -25,6 +27,9 @@ class Jobs extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.changeResultsPerPage = this.changeResultsPerPage.bind(this);
+
+    this.isStarred = this.isStarred.bind(this);
+    
   }
 
   nextPage = ()=>{
@@ -52,11 +57,29 @@ class Jobs extends Component {
 
   }
 
+  componentWillMount () {
+    this.props.getCurrentProfile();
+  }
+
   componentDidMount() {
     
     this.props.fetchJobs(this.state.page, this.state.resultsPerPg);
     this.props.jobCount();
+    
   }
+
+  //async => const user = await axios.get('api/users/current');
+  handleStar = (e)=>{
+    const clicked = e.target.getAttribute('data-job-id');
+    console.log(clicked);
+    console.log(this.props.user.profile.starredJobs)
+
+  }
+
+  isStarred = (jobId)=>{
+    console.log(this.props.user.profile)
+  }
+
 
 
   render() {
@@ -65,8 +88,10 @@ class Jobs extends Component {
     const renderJobs = this.props.jobs.map((job,i) => {
       return (
         <div key={i} className="col-sm-12 col-md-6">
+          <Star jobId={job._id} handleStar={this.handleStar} isStarred={this.isStarred(job._id)} />
           <a className='jobLink' href={job.link} target="_blank">
             <div className='jobBox'>
+              
               <h3 className='jobTitle'>{`${job.jobTitle}`}</h3>
               <p className='jobCompany'>{job.company}</p>
               <p className='jobSalary'>{job.salary}</p>
@@ -100,7 +125,8 @@ class Jobs extends Component {
 const mapStateToProps = state => ({
   //state.jobs or empty array if undefine to avoid issues
   jobs: state.jobs || [],
-  count: state.count 
+  count: state.count,
+  user: state.profile || [] 
 })
   
-export default connect(mapStateToProps, { fetchJobs, jobCount })(Jobs);
+export default connect(mapStateToProps, { fetchJobs, jobCount, getCurrentProfile })(Jobs);

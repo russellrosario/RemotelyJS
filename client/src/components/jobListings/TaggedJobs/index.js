@@ -11,6 +11,7 @@ import Prev from './Prev';
 import JobsPerPage from './JobsPerPage';
 
 import './style.css';
+import Star from '../Star';
 
 
 
@@ -25,6 +26,8 @@ class TaggedJobs extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.prevPage = this.prevPage.bind(this);
     this.changeResultsPerPage = this.changeResultsPerPage.bind(this);
+    this.handleStar = this.handleStar.bind(this);
+    this.isStarred = this.isStarred.bind(this);
   }
 
   nextPage = ()=>{
@@ -58,6 +61,15 @@ class TaggedJobs extends Component {
     this.props.fetchTaggedJobs(this.props.filter, this.state.page, this.state.resultsPerPg);
   }
 
+  handleStar = ()=>{
+    console.log('starred')
+  }
+
+  isStarred = ()=>{
+    console.log('t/f')
+  }
+
+
 
   render() {
 
@@ -66,7 +78,9 @@ class TaggedJobs extends Component {
     const renderJobs = this.props.taggedJobs[1].map((job,i) => {
       return (
         <div key={i} className="col-sm-12 col-md-6">
+          <Star jobId={job._id} handleStar={this.handleStar} isStarred={this.isStarred} />
           <a className='jobLink' href={job.link} target="_blank">
+            
             <div className='jobBox'>
               <p>{job._id}</p>
               <h3 className='jobTitle'>{`${job.jobTitle}`}</h3>
