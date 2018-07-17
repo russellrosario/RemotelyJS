@@ -99,6 +99,66 @@ router.post('/login', (req, res) => {
   })
 })
 
+// @route   POST api/profile/job/star
+// @desc    adds job to starred jobs
+// @access  Private
+router.post(
+  '/job/star',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log(req.body.jobId)
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      
+      const jobIndex = profile.starredJobs.indexOf(req.body.jobId);
+      // Add to id if it does not exist array
+      if(jobIndex < 0){
+        profile.starredJobs.push(req.body.jobId);
+      }
+      
+
+      profile.save().then(profile => res.json(profile))
+    })
+  }
+)
+
+// @route   POST api/profile/job/unstar
+// @desc    removes job from starred jobs
+// @access  Private
+router.post(
+  '/job/unstar',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    console.log(req.body.jobId)
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      
+      const jobIndex = profile.starredJobs.indexOf(req.body.jobId);
+      // Add to id if it does not exist array
+      if(jobIndex > - 1){
+        profile.starredJobs.splice(jobIndex, 1);
+        
+      }
+      
+      profile.save().then(profile => res.send('Removed'));
+      
+    })
+  }
+)
+
+// @route   GET api/users/current
+// @desc    Return current user
+// @access  Private
+router.get(
+  '/starred',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    
+    User.findOne({_id: req.user.id}).then(user=>{
+      res.json(user.starredJobs)
+    })
+
+  }
+)
+
 // @route   GET api/users/current
 // @desc    Return current user
 // @access  Private

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchJobs } from '../../../actions/jobBoardActions';
-import { jobCount } from '../../../actions/jobBoardActions';
-import { getCurrentProfile } from '../../../actions/profileActions';
+import { fetchJobs, jobCount, fetchStarred } from '../../../actions/jobBoardActions';
 
 import moment from 'moment';
 import axios from 'axios';
@@ -61,14 +59,14 @@ class Jobs extends Component {
   }
 
   componentWillMount () {
-    this.props.getCurrentProfile();
+    this.props.fetchStarred();
   }
 
   componentDidMount() {
-    
+    console.log(this.props)
     this.props.fetchJobs(this.state.page, this.state.resultsPerPg);
     this.props.jobCount();
-    this.props.getCurrentProfile();
+    this.props.fetchStarred();
     
   }
 
@@ -172,7 +170,7 @@ const mapStateToProps = state => ({
   //state.jobs or empty array if undefine to avoid issues
   jobs: state.jobs || [],
   count: state.count,
-  user: state.profile || [] 
+  starred: state.starred
 })
   
-export default connect(mapStateToProps, { fetchJobs, jobCount, getCurrentProfile })(Jobs);
+export default connect(mapStateToProps, { fetchJobs, jobCount, fetchStarred })(Jobs);

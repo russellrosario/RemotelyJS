@@ -151,51 +151,6 @@ router.post(
   }
 )
 
-// @route   POST api/profile/job/star
-// @desc    adds job to starred jobs
-// @access  Private
-router.post(
-  '/job/star',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    console.log(req.body.jobId)
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      
-      const jobIndex = profile.starredJobs.indexOf(req.body.jobId);
-      // Add to id if it does not exist array
-      if(jobIndex < 0){
-        profile.starredJobs.push(req.body.jobId);
-      }
-      
-
-      profile.save().then(profile => res.json(profile))
-    })
-  }
-)
-
-// @route   POST api/profile/job/unstar
-// @desc    removes job from starred jobs
-// @access  Private
-router.post(
-  '/job/unstar',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    console.log(req.body.jobId)
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      
-      const jobIndex = profile.starredJobs.indexOf(req.body.jobId);
-      // Add to id if it does not exist array
-      if(jobIndex > - 1){
-        profile.starredJobs.splice(jobIndex, 1);
-        
-      }
-      
-      profile.save().then(profile => res.send('Removed'));
-      
-    })
-  }
-)
-
 // @route   DELETE api/profile/experience/:exp_id
 // @desc    Delete experience from profile
 // @access  Private

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 
 import './style.css';
-import { isContext } from 'vm';
 
 class Star extends Component {
   constructor(props){
