@@ -67,6 +67,8 @@ class Jobs extends Component {
   }
 
   addStar (jobId){
+    const stars = parseInt(document.getElementById(`jobStars_${jobId}`).innerHTML, 0);
+     document.getElementById(`jobStars_${jobId}`).innerHTML = stars+1;
     return axios.post('/api/jobs/job/star', {
       jobId: jobId
     })
@@ -74,6 +76,8 @@ class Jobs extends Component {
   }
 
    unStar (jobId){
+     const stars = parseInt(document.getElementById(`jobStars_${jobId}`).innerHTML, 0);
+     document.getElementById(`jobStars_${jobId}`).innerHTML = stars-1;
     return  axios.post('/api/jobs/job/unstar', {
       jobId: jobId
     })
@@ -112,19 +116,22 @@ class Jobs extends Component {
 
   render() {
 
+    const thisJobStars = (jobId, starred)=>{
+      return <span id={`jobStars_${jobId}`}>{starred}</span>
+    }
 
     const renderJobs = this.props.jobs.map((job,i) => {
       return (
         <div key={i} className="col-sm-12 col-md-6">
           <Star jobId={job._id} handleStar={this.handleStar} isStarred={this.isStarred(job._id)} />
           <a className='jobLink' href={job.link} target="_blank">
+            
             <div className='jobBox'>
-              
               <h3 className='jobTitle'>{`${job.jobTitle}`}</h3>
               <p className='jobCompany'>{job.company}</p>
               <p className='jobSalary'>{job.salary}</p>
               <p className='jobDescription'>{job.description}</p>
-              <p className="dateAdded">Added: {moment(job.dateAdded).format('MMM Do YYYY')}</p><p className="liked">Liked {`${job.starred} time(s)`}</p>
+              <p className="dateAdded">Added: {moment(job.dateAdded).format('MMM Do YYYY')}</p><span className="liked">Liked {thisJobStars(job._id, job.starred)}{` time(s)`}</span>
             </div>
           </a>
         </div>
