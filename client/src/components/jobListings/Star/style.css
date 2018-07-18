@@ -3,6 +3,7 @@
     float: none;
     margin-right: 90%;
     display: block;
+    z-index: 4;
 }
 
 .star:hover {

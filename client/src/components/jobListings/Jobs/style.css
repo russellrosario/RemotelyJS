@@ -1,5 +1,6 @@
 .jobLink {
     color: black;
+    z-index: 1;
 }
 
 .jobLink:hover {
@@ -11,6 +12,7 @@
     padding: 30px 10px 10px 10px;
     word-wrap: break-word;
     border-radius: 4px;
+    z-index: 1;
 }
 
 .jobBox:hover {

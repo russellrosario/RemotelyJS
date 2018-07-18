@@ -10,6 +10,7 @@ class Star extends Component {
     this.state = {
       starred: this.props.isStarred
     }
+
   }
 
   render() {

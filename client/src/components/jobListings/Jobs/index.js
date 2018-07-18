@@ -67,11 +67,11 @@ class Jobs extends Component {
   }
 
   addStar (jobId){
-    const stars = parseInt(document.getElementById(`jobStars_${jobId}`).innerHTML, 0);
+    const stars = parseInt(document.getElementById(`jobStars_${jobId}`).innerHTML,);
      document.getElementById(`jobStars_${jobId}`).innerHTML = stars+1;
     return axios.post('/api/jobs/job/star', {
       jobId: jobId
-    })
+    }).then(this.props.fetchStarred())
     
   }
 
@@ -80,11 +80,12 @@ class Jobs extends Component {
      document.getElementById(`jobStars_${jobId}`).innerHTML = stars-1;
     return  axios.post('/api/jobs/job/unstar', {
       jobId: jobId
-    })
+    }).then(this.props.fetchStarred());
     
   }
   
   handleStar = (e)=>{
+    
     
     const clicked = e.target.getAttribute('data-job-id');
 
@@ -97,14 +98,9 @@ class Jobs extends Component {
       jobIsStarred ? this.unStar(clicked) : this.addStar(clicked);
       
     }
-    
 
   }
 
-  componentWillReceiveProps(){
-    this.props.fetchStarred();
-    
-  }
 
   isStarred = (jobId)=>{
     if(this.props.starred){
