@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTaggedJobs } from '../../../actions/jobBoardActions';
-import { getCurrentProfile } from '../../../actions/profileActions';
+import { fetchTaggedJobs, fetchStarred } from '../../../actions/jobBoardActions';
 
 import moment from 'moment';
 import axios from 'axios';
@@ -63,61 +62,50 @@ class TaggedJobs extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.filter)
     this.props.fetchTaggedJobs(this.props.filter, this.state.page, this.state.resultsPerPg);
+    this.props.fetchStarred();
+    
+    
   }
 
   addStar (jobId){
-    return axios.post('/api/profile/job/star', {
+    return axios.post('/api/jobs/job/star', {
       jobId: jobId
-    })
-    .then(function(response){
-      
-      console.log(response);
-    })
-    .catch(function(e){
-      console.log(e);
     })
     
   }
 
-  unStar (jobId){
-    return axios.post('/api/profile/job/unstar', {
+   unStar (jobId){
+    return  axios.post('/api/jobs/job/unstar', {
       jobId: jobId
     })
-    .then(function(response){
-      
-      console.log(response);
-    })
-    .catch(function(e){
-      console.log(e);
-    })
-
     
   }
   
   handleStar = (e)=>{
-    this.props.getCurrentProfile();
     
     const clicked = e.target.getAttribute('data-job-id');
-    const profile = this.props.user.profile;
 
+    const starred = this.props.starred;
 
-
-    if(profile){
+    if(starred){
       
-      const jobIsStarred = profile.starredJobs.indexOf(clicked) > -1;
+      const jobIsStarred = starred.indexOf(clicked) > -1;
       
       jobIsStarred ? this.unStar(clicked) : this.addStar(clicked);
       
-      this.forceUpdate();
     }
+    
 
   }
 
+  componentWillReceiveProps(){
+    this.props.fetchStarred();
+  }
+
   isStarred = (jobId)=>{
-    if(this.props.user.profile){
-      return this.props.user.profile.starredJobs.indexOf(jobId) > -1;
+    if(this.props.starred){
+      return this.props.starred.indexOf(jobId) > -1;
     }
   }
 
@@ -165,7 +153,7 @@ class TaggedJobs extends Component {
 const mapStateToProps = state => ({
   //state.taggedJobs or 0, empty array if undefine to avoid issues
   taggedJobs: state.taggedJobs || [0, []],
-  user: state.profile || []
+  starred: state.starred || []
 })
   
-export default connect(mapStateToProps, { fetchTaggedJobs, getCurrentProfile })(TaggedJobs);
+export default connect(mapStateToProps, { fetchTaggedJobs, fetchStarred })(TaggedJobs);

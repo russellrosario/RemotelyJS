@@ -5,6 +5,10 @@
     display: block;
 }
 
+.star:hover {
+    cursor: pointer;
+}
+
 .starred {
     color: red;
 }

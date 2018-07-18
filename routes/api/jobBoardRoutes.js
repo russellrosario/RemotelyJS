@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 require('../../models/jobs');
 
@@ -53,9 +55,64 @@ const scraper = require('../../controllers/jobBoard');
         res.redirect('/feed');
     });
 
-    router.post('/star', async (req,res)=>{
-        console.log(req.currentUser);
-        res.send('ok');
-    });
+    // @route   POST api/jobs/job/star
+// @desc    adds job to starred jobs
+// @access  Private
+router.post(
+    '/job/star',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      console.log(req.body.jobId)
+      User.findOne({ _id: req.user.id }).then(user => {
+        
+        const jobIndex = user.starredJobs.indexOf(req.body.jobId);
+        // Add to id if it does not exist array
+        if(jobIndex < 0){
+          user.starredJobs.push(req.body.jobId);
+        }
+        
+  
+        user.save().then(user => res.json(user.starredJobs))
+      })
+    }
+  )
+  
+  // @route   POST api/jobs/job/unstar
+  // @desc    removes job from starred jobs
+  // @access  Private
+  router.post(
+    '/job/unstar',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      console.log(req.body.jobId)
+      User.findOne({ _id: req.user.id }).then(user => {
+        
+        const jobIndex = user.starredJobs.indexOf(req.body.jobId);
+        // Add to id if it does not exist array
+        if(jobIndex > - 1){
+          user.starredJobs.splice(jobIndex, 1);
+          
+        }
+        
+        user.save().then(user => res.send('Removed'));
+        
+      })
+    }
+  )
+  
+  // @route   GET api/jobs/starred
+  // @desc    Return current user
+  // @access  Private
+  router.get(
+    '/starred',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+      
+      User.findOne({_id: req.user.id}).then(user=>{
+        res.json(user.starredJobs)
+      })
+  
+    }
+  )
 
 module.exports = router;

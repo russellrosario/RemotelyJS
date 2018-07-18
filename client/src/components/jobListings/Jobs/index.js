@@ -58,69 +58,53 @@ class Jobs extends Component {
 
   }
 
-  componentWillMount () {
-    this.props.fetchStarred();
-  }
-
   componentDidMount() {
-    console.log(this.props)
     this.props.fetchJobs(this.state.page, this.state.resultsPerPg);
     this.props.jobCount();
     this.props.fetchStarred();
     
+    
   }
 
   addStar (jobId){
-    return axios.post('/api/profile/job/star', {
+    return axios.post('/api/jobs/job/star', {
       jobId: jobId
-    })
-    .then(function(response){
-      
-      console.log(response);
-    })
-    .catch(function(e){
-      console.log(e);
     })
     
   }
 
-  unStar (jobId){
-    return axios.post('/api/profile/job/unstar', {
+   unStar (jobId){
+    return  axios.post('/api/jobs/job/unstar', {
       jobId: jobId
     })
-    .then(function(response){
-      
-      console.log(response);
-    })
-    .catch(function(e){
-      console.log(e);
-    })
-
     
   }
   
   handleStar = (e)=>{
-    this.props.getCurrentProfile();
     
     const clicked = e.target.getAttribute('data-job-id');
-    const profile = this.props.user.profile;
 
+    const starred = this.props.starred;
 
-
-    if(profile){
+    if(starred){
       
-      const jobIsStarred = profile.starredJobs.indexOf(clicked) > -1;
+      const jobIsStarred = starred.indexOf(clicked) > -1;
       
       jobIsStarred ? this.unStar(clicked) : this.addStar(clicked);
       
-      this.forceUpdate();
     }
+    
 
   }
 
+  componentWillReceiveProps(){
+    this.props.fetchStarred();
+    
+  }
+
   isStarred = (jobId)=>{
-    if(this.props.user.profile){
-      return this.props.user.profile.starredJobs.indexOf(jobId) > -1;
+    if(this.props.starred){
+      return this.props.starred.indexOf(jobId) > -1;
     }
   }
 
@@ -170,7 +154,7 @@ const mapStateToProps = state => ({
   //state.jobs or empty array if undefine to avoid issues
   jobs: state.jobs || [],
   count: state.count,
-  starred: state.starred
+  starred: state.starred || []
 })
   
 export default connect(mapStateToProps, { fetchJobs, jobCount, fetchStarred })(Jobs);

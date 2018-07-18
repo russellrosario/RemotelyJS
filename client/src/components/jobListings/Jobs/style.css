@@ -54,3 +54,8 @@
     font-size: 30px;
     
 }
+
+#clearFilter {
+    transform: rotate(180deg);
+    color: red;
+}

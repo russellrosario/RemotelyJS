@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Jobs from './Jobs'
 import TaggedJobs from './TaggedJobs';
 
-const filters = ['all', 'react', 'angular', 'vue', 'node']
+const filters = ['react', 'angular', 'vue', 'node']
 
 class Feed extends Component {
   constructor(props){
@@ -17,7 +17,7 @@ class Feed extends Component {
 
   changeFilter = (event)=>{
     const filter = event.target.getAttribute('value');
-    if(filters.some(e => e === filter) && filter !== this.state.filter){
+    if((filters.some(e => e === filter) && this.state.filter === 'all') || filter === 'all'){
       this.setState({filter: filter});
     }
   }
@@ -39,7 +39,7 @@ class Feed extends Component {
     return(
       <div>
           <p className="text-center">Filter: </p>
-          <div className="d-flex flex-row justify-content-center">{tagSelectors()}</div>
+          <div className="d-flex flex-row justify-content-center"><a value="all" className={this.state.filter === 'all' ? "filter-container active" : "filter-container"} onClick={this.changeFilter}><i value="all" id="clearFilter" className="material-icons">backspace</i></a>{tagSelectors()}</div>
           <br />
           {jobs()}
       </div>
