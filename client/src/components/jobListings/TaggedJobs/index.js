@@ -87,6 +87,8 @@ class TaggedJobs extends Component {
   }
   
   handleStar = (e)=>{
+
+    this.props.fetchStarred();
     
     const clicked = e.target.getAttribute('data-job-id');
 
@@ -101,10 +103,6 @@ class TaggedJobs extends Component {
     }
     
 
-  }
-
-  componentWillReceiveProps(){
-    this.props.fetchStarred();
   }
 
   isStarred = (jobId)=>{
