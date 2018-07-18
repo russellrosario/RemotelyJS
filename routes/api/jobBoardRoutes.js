@@ -62,13 +62,17 @@ router.post(
     '/job/star',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-      console.log(req.body.jobId)
       User.findOne({ _id: req.user.id }).then(user => {
         
         const jobIndex = user.starredJobs.indexOf(req.body.jobId);
         // Add to id if it does not exist array
         if(jobIndex < 0){
           user.starredJobs.push(req.body.jobId);
+          Jobs.findOne({_id: req.body.jobId}).then(job=>{
+              job.starred +=1;
+              job.save();
+          });
+        
         }
         
   
@@ -84,13 +88,17 @@ router.post(
     '/job/unstar',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-      console.log(req.body.jobId)
+      
       User.findOne({ _id: req.user.id }).then(user => {
         
         const jobIndex = user.starredJobs.indexOf(req.body.jobId);
         // Add to id if it does not exist array
         if(jobIndex > - 1){
           user.starredJobs.splice(jobIndex, 1);
+          Jobs.findOne({_id: req.body.jobId}).then(job =>{
+            job.starred -= 1;
+            job.save();
+          });
           
         }
         

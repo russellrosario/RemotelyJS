@@ -124,7 +124,7 @@ class Jobs extends Component {
               <p className='jobCompany'>{job.company}</p>
               <p className='jobSalary'>{job.salary}</p>
               <p className='jobDescription'>{job.description}</p>
-              <p className="dateAdded">Added: {moment(job.dateAdded).format('MMM Do YYYY')}</p>
+              <p className="dateAdded">Added: {moment(job.dateAdded).format('MMM Do YYYY')}</p><p className="liked">Liked {`${job.starred} time(s)`}</p>
             </div>
           </a>
         </div>

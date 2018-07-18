@@ -39,6 +39,7 @@ function Job (title, company, desc, sal, link){
     this.salary = sal;
     this.link = link;
     this.dateAdded = new Date;
+    this.starred = 0;
 }
 
 //finds all job listings on the  passed in page and saves them to mongo

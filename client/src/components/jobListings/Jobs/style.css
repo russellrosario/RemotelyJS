@@ -39,6 +39,13 @@
 
 .dateAdded {
     font-size: 10px;
+    display: inline-block;
+}
+
+.liked {
+    
+    float: right;
+    font-size: 10px;
 }
 
 .filter-container {
