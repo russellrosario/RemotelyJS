@@ -69,8 +69,7 @@ class TaggedJobs extends Component {
   }
 
   addStar (jobId){
-    const stars = parseInt(document.getElementById(`jobStars_${jobId}`).innerHTML, 0);
-     document.getElementById(`jobStars_${jobId}`).innerHTML = stars+1;
+    
     return axios.post('/api/jobs/job/star', {
       jobId: jobId
     })
@@ -78,8 +77,6 @@ class TaggedJobs extends Component {
   }
 
    unStar (jobId){
-     const stars = parseInt(document.getElementById(`jobStars_${jobId}`).innerHTML, 0);
-     document.getElementById(`jobStars_${jobId}`).innerHTML = stars-1;
     return  axios.post('/api/jobs/job/unstar', {
       jobId: jobId
     })
@@ -130,7 +127,7 @@ class TaggedJobs extends Component {
               <p className='jobCompany'>{job.company}</p>
               <p className='jobSalary'>{job.salary}</p>
               <p className='jobDescription'>{job.description}</p>
-              <p className="dateAdded">Added: {moment(job.dateAdded).format('MMM Do YYYY')}</p><span className="liked">Liked {thisJobStars(job._id, job.starred)}{` time(s)`}</span>
+              <p className="dateAdded">Added: {moment(job.dateAdded).format('MMM Do YYYY')}</p>
             </div>
           </a>
         </div>
