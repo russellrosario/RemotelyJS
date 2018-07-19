@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import { clearCurrentProfile } from './actions/profileActions';
+import Intro from './components/intro';
 
 import { Provider } from 'react-redux';
 import store from './store';
@@ -58,12 +59,15 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Landing} />
+            <Route exact path="/intro" component={Intro} />
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/hiring" component={Hiring} />
               <Route exact path="/response" component={Response} />
               <Route exact path="/guide" component={Guide} />
+              
+
 
 
               <Switch>
