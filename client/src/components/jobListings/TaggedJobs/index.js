@@ -112,10 +112,6 @@ class TaggedJobs extends Component {
 
   render() {
 
-    const thisJobStars = (jobId, starred)=>{
-      return <span id={`jobStars_${jobId}`}>{starred}</span>
-    }
-
     const renderJobs = this.props.taggedJobs[1].map((job,i) => {
       return (
         <div key={i} className="col-sm-12 col-md-6">
